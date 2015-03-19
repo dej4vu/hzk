@@ -3,7 +3,7 @@ package hzk
 
 import (
 	"errors"
-	"os"
+	// "os"
 	"unicode/utf8"
 
 	"golang.org/x/text/encoding/simplifiedchinese"
@@ -55,20 +55,24 @@ func Matrix(p []byte) ([]byte, error) {
 	}
 	qwm := quweima(gbk)
 	offset := computeOffset(qwm)
-	file, err := os.Open("hzk/HZK16")
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	_, err = file.Seek(offset, 0)
+	// file, err := os.Open("hzk/HZK16")
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// defer file.Close()
+	// _, err = file.Seek(offset, 0)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	asset, err := Asset("HZK16")
 	if err != nil {
 		return nil, err
 	}
 	var b = make([]byte, 32)
-	// var key = []byte{0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01}
-	_, err = file.Read(b)
-	if err != nil {
-		return nil, err
-	}
+	// _, err = file.Read(b)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	b = asset[offset : offset+32]
 	return b, nil
 }
